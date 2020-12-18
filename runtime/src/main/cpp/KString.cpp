@@ -1165,10 +1165,14 @@ KInt Kotlin_String_lastIndexOfString(KString thiz, KString other, KInt fromIndex
 
 KInt Kotlin_String_hashCode(KString thiz) {
   // TODO: consider caching strings hashes.
-  // TODO: maybe use some simpler hashing algorithm?
-  // Note that we don't use Java's string hash.
-  return CityHash64(
-    CharArrayAddressOfElementAt(thiz, 0), thiz->count_ * sizeof(KChar));
+  uint32_t length = thiz->count_;
+  const KChar* chars = CharArrayAddressOfElementAt(thiz, 0);
+
+  KInt result = 0;
+  for (uint32_t index = 0; index < length; ++index) {
+    result = result * 31 + chars[index];
+  }
+  return result;
 }
 
 const KChar* Kotlin_String_utf16pointer(KString message) {
