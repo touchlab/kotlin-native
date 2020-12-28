@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.konan.file.File
 import org.jetbrains.kotlin.konan.target.CompilerOutputKind
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.LinkerOutputKind
+import org.jetbrains.kotlin.konan.target.SanitizerKind
 import org.jetbrains.kotlin.konan.library.KonanLibrary
 import org.jetbrains.kotlin.konan.target.supportsMimallocAllocator
 import org.jetbrains.kotlin.library.resolver.TopologicalLibraryOrder
@@ -158,7 +159,8 @@ internal class Linker(val context: Context) {
                     kind = linkerOutput,
                     outputDsymBundle = context.config.outputFiles.symbolicInfoFile,
                     needsProfileLibrary = needsProfileLibrary,
-                    mimallocEnabled = mimallocEnabled)
+                    mimallocEnabled = mimallocEnabled,
+                    sanitizer = SanitizerKind.NONE)
             (linkerInput.preLinkCommands + finalOutputCommands).forEach {
                 it.logWith(context::log)
                 it.execute()
