@@ -169,7 +169,7 @@ internal class Linker(val context: Context) {
                         """
                         Please try to disable compiler caches and rerun the build. To disable compiler caches, add the following line to the gradle.properties file in the project's root directory:
                             
-                            kotlin.native.cacheKind=none
+                            kotlin.native.cacheKind.${target.name}=none
                             
                         Also, consider filing an issue with full Gradle log here: https://kotl.in/issue
                         """.trimIndent()
